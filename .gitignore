@@ -1,0 +1,40 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Sensitive data and state
+data/sessions/
+data/cache/
+data/resumes/
+data/config/runtime.json
+data/*.json
+session_*.json
+*.log
+
+# Frontend Node & Build Artifacts
+frontend/node_modules/
+frontend/dist/
+node_modules/
+dist/
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

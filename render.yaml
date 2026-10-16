@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: naukri-apply-ai
+    runtime: docker
+    plan: starter
+    region: oregon
+    healthCheckPath: /healthz
+    disk:
+      name: bot-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: ENV
+        value: production
+      - key: DATA_DIR
+        value: /data
+      - key: PLAYWRIGHT_BROWSERS_PATH
+        value: /ms-playwright
+      - key: HEADLESS
+        value: "true"
+      - key: PYTHONIOENCODING
+        value: "utf-8"
+      - key: ADMIN_USERNAME
+        value: "admin"
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: DB_NAME
+        value: "NAUKRI_BOT"
+      - key: FRONTEND_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GOOGLE_SHEET_WEBHOOK_URL
+        sync: false
+      - key: GOOGLE_SHEET_URL
+        sync: false

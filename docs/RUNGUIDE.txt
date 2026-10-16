@@ -1,0 +1,126 @@
+================================================================================
+                    NAUKRI AUTO-APPLY AI - STEP-BY-STEP RUN GUIDE
+================================================================================
+
+Yeh guide aapko batayegi ki aap khud jab chahe script ko kaise run kar sakte hain,
+kahan settings change karni hain, aur applications kaise track karni hain.
+
+--------------------------------------------------------------------------------
+1. SCRIPT KAISE RUN KAREIN (QUICK START)
+--------------------------------------------------------------------------------
+Tarika A (Sabse Aasan - 1 Click):
+Folder mein `RUN_APPLY.bat` file par double click kar dein!
+
+Tarika B (Terminal se):
+Step 1: VS Code ya PowerShell open karein project folder mein:
+        c:\Users\Sakshi\Desktop\Naukri\v1\naukri-job-apply-ai
+
+Step 2: Yeh command run karein:
+        python naukri_apply.py
+
+Step 3: Browser window open hoga aur automatically jobs search karke apply
+        karna start kar dega!
+
+Step 4: Screening Questions (100% Automatic):
+        - AI / Skills / Experience / Yes-No wale sabhi questions script khud Gemini AI
+          aur aapke profile se automatically answer karke aage badh jaati hai.
+        - Agar kabhi koi private personal detail (jaise DOB) poochi jaye, tabhi terminal
+          pe poochti hai aur use bhi hamesha ke liye yaad rakh leti hai.
+
+Step 5: Script ko beech mein rokne ke liye:
+        Terminal mein `Ctrl + C` dabayein.
+
+--------------------------------------------------------------------------------
+2. SETTINGS KAISE CHANGE KAREIN (profile.yaml)
+--------------------------------------------------------------------------------
+File: `profile.yaml` open karein aur jo chahein change karein:
+
+1. Kitne jobs apply karne hain:
+   stop_after_n_applications: 50     (Aapne abhi 2000 set kiya hai)
+
+2. Har role ke kitne pages search karne hain:
+   max_pages_per_role: 5             (Default 3 hai, zyada jobs ke liye 5 ya 10 kar sakte hain)
+
+3. Kitne din purani jobs dekhni hain:
+   job_freshness_days: 3             (1, 3, ya 7 days)
+
+4. Roles jo search karne hain:
+   target_roles:
+     - "Data Engineer"
+     - "Backend Developer"
+     - "Data Analyst"
+
+5. Browser window (Hidden vs Visible):
+   browser_mode: "headless"          (Chrome screen pe bilkul NAHI dikhega, background me chalega)
+   # browser_mode: "visible"         (Agar screen pe browser dekhna ho)
+
+--------------------------------------------------------------------------------
+3. APPLIED JOBS KA RECORD KAHAN DEKHEIN?
+--------------------------------------------------------------------------------
+Har ek application ka record automatically save hota hai:
+File: `applications_log.csv`
+
+Isme aapko dikhega:
+- Date & Time
+- Job Title
+- Company Name
+- Status (applied / skipped / uncertain)
+
+--------------------------------------------------------------------------------
+4. DAILY PROFILE BOOST (RESUME REFRESH)
+--------------------------------------------------------------------------------
+Naukri recruiters ke top search mein aane ke liye daily resume refresh run karein:
+
+Command:
+        python naukri_refresh_resume.py
+
+Yeh script automatically aapka resume re-upload karke profile timestamp update kar degi.
+
+--------------------------------------------------------------------------------
+5. AGAR FUTURE MEIN SESSION EXPIRE HO JAYE (LOGIN GUIDE)
+--------------------------------------------------------------------------------
+Agar kabhi session expire ho jaye ya script bole "Login Required":
+
+1. Folder mein `START_LOGIN.bat` par double-click karein (ya terminal me `python login_capture.py naukri` run karein).
+2. Browser window khulegi, usme apna Naukri email/password se login karein.
+3. Terminal pe Enter press karein. Session automatically save ho jayega!
+
+--------------------------------------------------------------------------------
+6. FAST REAL-TIME JOB MONITOR (TURANT APPLY)
+--------------------------------------------------------------------------------
+Agar aap chahte hain ki jaise hi koi nayi job post ho, bot TURANT use sabse pehle
+apply kare:
+
+Tarika 1: Folder mein `RUN_FAST_WATCHER.bat` par double click karein!
+Tarika 2: Terminal mein run karein:
+          python fast_parallel_apply.py
+
+Yeh script har 60s mein fresh postings scan karti hai aur newly posted jobs par
+sabse pehle auto-apply kar deti hai.
+
+--------------------------------------------------------------------------------
+7. WEB DASHBOARD (MOBILE & PC CONTROL + RENDER CLOUD READY)
+--------------------------------------------------------------------------------
+Aapke paas full web dashboard hai jisse aap mobile ya desktop browser se
+poora bot control kar sakte hain:
+
+Local pe chalane ke liye:
+- `RUN_DASHBOARD.bat` par double click karein (ya `python web_dashboard.py` run karein).
+- Browser mein open ho jayega: http://localhost:8000
+
+Dashboard ke Features:
+1. Live Stats: Total applied, today applied, status (RUNNING/IDLE)
+2. Live Application Table: Kaunsi company mein apply hua live update hoga (auto-refresh)
+3. Profile Editor: `profile.yaml` ko directly web page se edit aur save kar sakte hain
+4. API Key Manager: Gemini, Groq, MongoDB keys seedha web page se add/remove karein
+5. 1-Click Buttons: Start Normal Apply, Start Fast Watcher, Stop, Refresh Resume
+
+Render Cloud Deployment:
+- GitHub pe private repository banakar code push karein
+- Render.com par New Web Service banayein
+- Start Command: uvicorn web_dashboard:app --host 0.0.0.0 --port $PORT
+- Render URL par click karne par aapka live dashboard open ho jayega!
+
+================================================================================
+                                ALL SET & READY!
+================================================================================ 

@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  naukri-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: naukri-apply-ai:latest
+    container_name: naukri_apply_ai
+    init: true
+    shm_size: "1gb"
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=production
+      - PORT=8000
+      - DATA_DIR=/data
+      - HEADLESS=true
+      - PYTHONIOENCODING=utf-8
+      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - SECRET_KEY=${SECRET_KEY}
+      - MONGODB_URI=${MONGODB_URI}
+      - DB_NAME=${DB_NAME:-NAUKRI_BOT}
+      - DAILY_LIMIT_TZ=Asia/Kolkata
+    volumes:
+      - bot_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request, sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/healthz').getcode() == 200 else 1)\""]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  bot_data:
+    name: naukri_bot_data

@@ -1,0 +1,7 @@
+# Ruff configuration (matches CI: `python -m ruff check backend/`)
+target-version = "py313"
+line-length = 120
+
+[lint.per-file-ignores]
+# Routers are imported after the FastAPI app object is constructed by design
+"backend/app/main.py" = ["E402"]

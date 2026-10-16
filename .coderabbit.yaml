@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+early_access: false
+reviews:
+  profile: "assertive"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - "main"
+      - "master"
+      - "dev"
+  tools:
+    shellcheck:
+      enabled: true
+    ruff:
+      enabled: true
+    eslint:
+      enabled: true
+    markdownlint:
+      enabled: true
+  path_instructions:
+    - path: "backend/**"
+      instructions: |
+        - Adhere strictly to FastAPI and Pydantic v2 best practices.
+        - Ensure all authentication endpoints verify passwords with bcrypt work factor >= 12.
+        - Check that role-based access control (RBAC) via `require_admin` is enforced on all admin endpoints. UI hiding alone is unacceptable.
+        - Verify user isolation: queries to profiles, resumes, settings, and activity must strictly filter by the authenticated user's claims.
+        - Disallow printing of secrets (passwords, JWT secrets, MongoDB connection strings, API keys) in standard stdout or logs. All loggers must use `backend/app/core/logging.py`.
+        - Validate file uploads: reject non-PDF files and enforce 5MB size limits.
+
+    - path: "frontend/**"
+      instructions: |
+        - Enforce TypeScript strictness. No `any` types where interfaces can be defined.
+        - Verify consistent Dark-First design language: pure black (#000000) background, Tailwind dark palette, emerald accents, and tabular mono fonts for stats.
+        - Confirm dual mobile (<768px) and desktop (>=768px) responsive layouts.
+        - Check TanStack React Query configurations: ensure `staleTime`, `refetchOnWindowFocus: false`, and polling disabled when document is hidden.
+        - Validate that admin pages and navigation items are inaccessible to standard users via Route guards.
+        - Ensure interactive feedback uses `sonner` toasts.
+
+    - path: ".github/**"
+      instructions: |
+        - Verify security of GitHub Actions workflows: pin action versions, enforce minimal permissions, and avoid exposing secrets in logs.
+
+chat:
+  auto_reply: true
